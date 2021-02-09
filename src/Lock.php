@@ -16,7 +16,7 @@ use saavtek\LoginWD\models\LoginAttempt;
 
 class Lock extends Validator
 {
-    public $attempts = 3;
+    public $attempts = 5;
     public $lockDuration = 900;
     public $usernameAttribute = 'username';
 
