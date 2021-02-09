@@ -56,7 +56,7 @@ To limit login attempts, and lock accounts after repeated failed attempts, add t
 ```php
 [
     'password', // The atribute to be validated
-    \saavtek\LoginWD\validators\Lock::className(), // The 'Lock' rule
+    \saavtek\LoginWD\Lock::className(), // The 'Lock' rule
     'skipOnError' => false,  //MANDATORY so that this validation rule is not skipped
     'attempts' => 5, // Optional - Max attempts alowed, default is 5 attempts
     'lockDuration' => 900, // Optional - Number of Seconds to disable login after exceeding `attemps`, default is 900 seconds
@@ -81,9 +81,9 @@ You can call the Unlock::User() static function from a Controller to unlock a pa
 \saavtek\LoginWD\Unlock::User($username, $category, $usernameAttribute)
 ```
 Where:
-- $usernameAttribute is the attribute used for identifying a user for login (optional, default is 'username').
 - $username is the value of the usernameAttribute used for login (REQUIRED).
 - $category is the category used for logging (optional, default is null, which will generate a log with 'application' category).
+- $usernameAttribute is the attribute used for identifying a user for login (optional, default is 'username').
 #
 You can call the Unlock::All() static function from a Controller to delete all the existing attempts
 ```php
