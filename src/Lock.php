@@ -40,7 +40,7 @@ class Lock extends Validator
 
             $this->addError($model, $this->usernameAttribute, 'Your account is temporarily locked.');
             $this->addError($model, $this->usernameAttribute, 'Please reset your password to unlock your account or try again later.');
-            Yii::error("Account LOCKED - Failed login attempt " . $loginAttempt->attempts . ": $model->username", get_class($this));
+            Yii::error("Account LOCKED - Failed login attempt " . $loginAttempt->attempts . ": $model->username", __METHOD__);
 
         } elseif ($model->hasErrors($attribute)) {
         //Failed login attempt
@@ -57,10 +57,10 @@ class Lock extends Validator
             //Lock account
                 $loginAttempt->lock_until = time() + $this->lockDuration;
                 $this->addError($model, $attribute, "PLEASE NOTE: your account has been locked temporarily. You can reset your password to unlock it or try again later.");
-                Yii::error("Account LOCKED - Failed login attempt " . $loginAttempt->attempts . ": $model->username", get_class($this));
+                Yii::error("Account LOCKED - Failed login attempt " . $loginAttempt->attempts . ": $model->username", __METHOD__);
             } else {
                 $this->addError($model, $attribute, "PLEASE NOTE: your account will be locked temporarily after $this->attempts consecutive failed login attempts.");
-                Yii::warning("Failed login attempt " . $loginAttempt->attempts . "/$this->attempts: $model->username", get_class($this));
+                Yii::warning("Failed login attempt " . $loginAttempt->attempts . "/$this->attempts: $model->username", __METHOD__);
             }
 
             $loginAttempt->save();
@@ -68,7 +68,7 @@ class Lock extends Validator
         } elseif (!$model->hasErrors()) {
         //No errors - login succeeded, clear previous failed attempts
             LoginAttempt::deleteAll(['username' => $model->username]);
-            Yii::info("Login: $model->username", get_class($this));
+            Yii::info("Login: $model->username", __METHOD__);
         }   
     }
 }

@@ -22,7 +22,7 @@ class Unlock extends Validator
     public function validateAttribute($model, $attribute)
     {
         if (!$model->hasErrors() and $this->username) {
-            static::User($this->username, get_class($this), $this->usernameAttribute);
+            static::User($this->username, __METHOD__, $this->usernameAttribute);
         }
     }
 
