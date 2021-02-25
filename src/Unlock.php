@@ -22,7 +22,7 @@ class Unlock extends Validator
     public function validateAttribute($model, $attribute)
     {
         if (!$model->hasErrors() and $this->username) {
-            static::User($this->username, __METHOD__, $this->usernameAttribute);
+            static::User($this->username, null, $this->usernameAttribute);
         }
     }
 
@@ -30,12 +30,12 @@ class Unlock extends Validator
     {
         $loginAttempt = LoginAttempt::findOne([$usernameAttribute => $username]);
         if ($loginAttempt and ($loginAttempt->delete() > 0))
-            Yii::info("Unlocked account: " . $username, $category);
+            Yii::info("Unlocked account: " . $username, $category ?? __METHOD__);
     }
 
     public static function All()
     {
         LoginAttempt::deleteAll();
-        Yii::info("Deleted ALL login attempts.");
+        Yii::info("Deleted ALL login attempts.", __METHOD__);
     }
 }
