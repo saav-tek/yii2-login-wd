@@ -22,7 +22,7 @@ class Lock extends Validator
 
     public function validateAttribute($model, $attribute)
     {
-        if (!$loginAttempt = LoginAttempt::find()->where(['username' => $model->username])->one()) {
+        if (!$loginAttempt = LoginAttempt::find()->where([$this->usernameAttribute => $model->username])->one()) {
             $loginAttempt = new LoginAttempt;
             $loginAttempt->username = $model->username;
             $loginAttempt->lock_until = 0;
